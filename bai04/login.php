@@ -9,6 +9,9 @@
     <button type="submit" name="submit">Login</button>
 </form>
 <?php
+//http://localhost:80/bai04/login.php
+//http://localhost:80/bai04/index.php
+//http://localhost:80/bai04
 if (isset($_GET['login_result'])) {
         $login_result = $_GET['login_result'];
         switch ($login_result) {

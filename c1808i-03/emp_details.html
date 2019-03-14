@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<h1>Employee Details</h1>
+<!-- 
+	http://localhost:80/c1808i-03/emp_details.html
+	-->
+<form action="emp_details.php" method="POST">
+	<table>
+		<tr>
+			<td>Employee ID</td>
+			<td><input type="text" name="employeeId"></td>
+			
+		</tr>
+		<tr>
+			<td>Name</td>
+			<td><input type="text" name="name"></td>
+		</tr>
+		<tr>
+			<td>Department</td>
+			<td>
+				<input type="radio" name="department" value='Finance' checked>Finance
+				<input type="radio" name="department" value='Marketing'>Marketing
+				<input type="radio" name="department" value='IT'>IT
+			</td>
+			
+		</tr>
+		<tr>
+			<td>Email</td>			
+			<td><input type="email" name="email"></td>
+		</tr>
+	</table>	
+	<button type="submit" value="submit">Send information</button>
+</form>
+
+</body>
+</html>

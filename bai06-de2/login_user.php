@@ -18,20 +18,24 @@ session_start();
 			<tr>
 				<td>Password:<input type="password" name="Password"></td>
 			</tr>
+			<tr>
+				<td><input type="checkbox" name="remember" id="remember" />Remember password</td>
+			</tr>
 		</table>
+		
 		<button type="submit" name="submit">Login</button>
+		
 	</form>
 <?php  
 //$_POST = super global
 // session_unset();
 // session_destroy();
-if(isset($_SESSION['isLogin'])) {
-	if($_SESSION['isLogin'] == 1) {
+if(isset($_SESSION['UserName'])) {
+	if(strlen($_SESSION['UserName']) > 0) {
 		header('Location: welcome.php');
 		exit();
 	}
 }
-
 if(isset($_POST["submit"])) {
 	$username = $_POST["UserName"];
 	$password = $_POST["Password"];
@@ -39,6 +43,7 @@ if(isset($_POST["submit"])) {
 		echo "<h1>You must input name, pass</h1>";
 		exit();
 	} 
+	
 	$username = mysqli_real_escape_string($connection, $username);
 	$sql = "SELECT * FROM abc12users WHERE UserName='".$username."'";
 	$result = mysqli_query($connection, $sql);
@@ -46,12 +51,18 @@ if(isset($_POST["submit"])) {
 		//Login
 		while($row=mysqli_fetch_assoc($result)) {
 			$encrypted_password = sha1($password);
-			if($row['PasswordHash'] == $encrypted_password) {
+			if($row['PASSWORD_HASH'] == $encrypted_password) {
 				echo "<h1>Login user successfully</h1>";
-				$_SESSION['isLogin'] = 1;
+				if(empty($_POST["remember"])) {
+					session_unset();
+				} else {
+					$_SESSION['UserName'] = $username;
+					$_SESSION['Password'] = $Password;
+				}
+				header('Location: welcome.php');
 			} else {
 				echo "<h1>Incorrect username or password</h1>";
-				$_SESSION['isLogin'] = 0;
+				session_unset();
 			}
 		}
 	} else {

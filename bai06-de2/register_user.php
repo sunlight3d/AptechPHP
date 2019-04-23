@@ -48,9 +48,11 @@ if(isset($_POST["submit"])) {
 		//Encrypt password to HEX
 		$password_hash = sha1($password);
 		//Register user
-		$sql = "INSERT INTO abc12users(UserName, PasswordHash, Phone)".
+		$sql = "INSERT INTO abc12users(UserName, PASSWORD_HASH, Phone)".
 			"VALUES('".$username."','".$password_hash."','".$phone_number."')";
 		$result = mysqli_query($connection, $sql);
+		var_dump($connection);
+
 		if($result) {
 			echo "<h3>Register successfully</h3>";
 			echo "<h3>Username: ".$username.".Phone: ".$phone_number."</h3>";
